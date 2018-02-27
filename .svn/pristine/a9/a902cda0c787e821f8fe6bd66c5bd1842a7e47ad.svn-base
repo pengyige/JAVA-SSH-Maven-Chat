@@ -1,0 +1,97 @@
+package cn.pengyi.web.action;
+
+import java.util.Date;
+
+import cn.pengyi.domain.User;
+import cn.pengyi.service.UserService;
+
+import com.opensymphony.xwork2.ActionSupport;
+
+public class UserAction extends ActionSupport {
+	
+	private User user;
+	
+	private UserService userService;
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	private String userId;
+	private String username;
+	private String password;
+	private String confirmpassword;
+	private boolean sex;
+	private String email;
+	private Date date;
+
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getConfirmpassword() {
+		return confirmpassword;
+	}
+	public void setConfirmpassword(String confirmpassword) {
+		this.confirmpassword = confirmpassword;
+	}
+	public boolean isSex() {
+		return sex;
+	}
+	public void setSex(boolean sex) {
+		this.sex = sex;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	public String register(){
+		//1.表单校验
+		
+		//2.封装数据
+		user = new User(username,password,sex,email,date);
+		
+		//3.保存数据
+		userService.save(user);
+		return SUCCESS;
+	}
+	
+	public String login(){
+		return SUCCESS;
+	}
+	
+
+	
+	//自定义验证
+/*	public void validateRegister() {
+	    if (username == null || "".equals(username.trim())) {
+	        addFieldError("username", "用户名不能为空");
+	    }
+	    if (password == null || !password.matches("\\d{3,6}")) {
+	        addFieldError("password", "密码不能为空且必须是3~6位的数字");
+	    }
+	}*/
+
+}

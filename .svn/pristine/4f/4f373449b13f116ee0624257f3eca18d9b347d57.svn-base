@@ -1,0 +1,59 @@
+package cn.pengyi.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import cn.pengyi.dao.UserDao;
+import cn.pengyi.domain.User;
+
+
+public class UserDaoImpl   implements UserDao {
+	private SessionFactory sessionFactory;
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	@Override
+	public void save(User user) {
+		
+		Session session =  sessionFactory.getCurrentSession();
+		session.save(user);
+		
+		
+	}
+
+	@Override
+	public User find(User user) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from User where username = ? and password = ?";
+		List list = session.createQuery(hql)
+				.setParameter(0, user.getUsername())
+				.setParameter(1, user.getPassword())
+				.list();
+		
+		if(!list.isEmpty()){
+			return (User) list.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public boolean findUserIsExist(String username) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from User where username = ?";
+		List list = session.createQuery(hql)
+				.setParameter(0, username)
+				.list();
+		
+		if(list.isEmpty()){
+			return false;
+		}
+		return true;
+	}
+
+}

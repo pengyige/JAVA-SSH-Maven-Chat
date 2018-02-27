@@ -1,0 +1,14 @@
+package cn.pengyi.dao;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import cn.pengyi.domain.User;
+
+
+public interface UserDao {
+	void save(User user);
+
+	User find(User user);
+
+	boolean findUserIsExist(String username);
+}

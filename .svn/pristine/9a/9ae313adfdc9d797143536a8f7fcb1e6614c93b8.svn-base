@@ -1,0 +1,10 @@
+package cn.pengyi.web.action;
+
+import com.opensymphony.xwork2.ActionSupport;
+
+public class CustomerAction extends ActionSupport {
+	
+	public  String mavenSSH(){
+		return this.SUCCESS;
+	}
+}

@@ -1,0 +1,18 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+<hibernate-mapping >  
+    <class name="cn.pengyi.domain.Customer" table="customer">  
+        <id name="custId" >  
+            <generator class="uuid"/>  
+        </id>  
+
+     	<property name="custName"></property>
+     	<property name="address"></property>
+
+     	
+
+    <!--  	<set name="setUserVisit">
+ 			<key column="uvid"></key>
+ 			<one-to-many class="cn.pengyi.entity.Visit"/>    	
+     	</set> -->
+    </class>  
+</hibernate-mapping>

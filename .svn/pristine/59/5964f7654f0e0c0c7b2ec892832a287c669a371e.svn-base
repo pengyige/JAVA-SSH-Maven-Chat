@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=src/main/webapp/js/bootstrapValidator.min.js,src/main/webapp/js/login.js,src/main/webapp/js/moment-with-locales.min.js
+validator.Unchecked=

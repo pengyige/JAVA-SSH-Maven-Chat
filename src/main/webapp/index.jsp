@@ -1,0 +1,250 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="cn.pengyi.websocket.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>chat</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=yes">
+
+    <!-- 引入css -->
+   	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+   	<link rel="stylesheet" type="text/css" href="css/index.css">
+   	<link rel="stylesheet" type="text/css" href="css/bootstrapValidator.min.css">
+    <!-- 引入js -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" src="js/chat.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+</head>
+<body > 
+	<!-- 导航区 -->
+	<nav class="navbar navbar-default  navbar-fixed-top navbar-inverse "  >
+		<!-- 导航区左边 -->
+  		<div class="container-fluid" >
+	    		<div class="navbar-header">
+	      			<a class="navbar-brand" href="#">
+	        			<img alt="326聊天室" src="...">
+	      			</a>
+	    		</div>
+
+	    	<!-- 导航菜单 -->
+	    	<div style="margin-left: 100px" class="visible-md-block visible-lg-block">
+	    		<ul class="nav navbar-nav">
+		        	<li><a href="#">主页<span class="sr-only">(current)</span></a></li>
+		       		<li><a href="#">资源区</a></li>
+		      		<li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心 <span class="caret"></span></a>
+			    
+			          	<ul class="dropdown-menu">
+				            <li><a href="#">基本信息</a></li>
+				            <li><a href="#">我的好友</a></li>
+				            <li><a href="#">我的日志</a></li>
+				            <li role="separator" class="divider"></li>
+				            <li><a href="#">留言</a></li>
+				            <li role="separator" class="divider"></li>
+				            <li><a href="#">历史记录</a></li>
+			            </ul>
+	    			</li>
+	      		</ul>
+	      	</div>
+
+
+	    	<!-- 导航区右边间 -->
+	        <form class="navbar-form navbar-right visible-md-block visible-lg-block" role="search" >
+		 			<div class="form-group">
+		    			<input type="text" class="form-control" placeholder="请输入关键字">
+		  			</div>
+		  			<button type="submit" class="btn btn-default">查询</button>
+			</form> 
+				
+		<!-- 	<p class="navbar-text navbar-right">用户名:<a href="#" class="navbar-link">彭旖</a></p> -->
+
+				<div class="my_nav_right navbar-right">
+					<c:choose>
+						<c:when test="${!empty sessionScope.user }">
+							<p class="navbar-text">欢迎,${sessionScope.user.username}
+							<label  style="color: #ccc;">|</label>
+							<a href="javascript:void(0);" class="logout_a">注销</a>
+							</p>
+						</c:when>
+						
+						<c:otherwise>
+							<p class="navbar-text">您还没有登入，请先登入
+							<a href="javascript:void(0);" class="login_a" data-toggle="modal" data-target="#login">登入</a>
+							</p>
+						</c:otherwise>
+					</c:choose>
+				</div>
+
+			
+			
+		</div>	
+  		
+	</nav>
+
+		<!-- 登入模态框 -->
+ 
+	<div id="login" class="modal fade" tabindex="-1">
+		<div class="modal-dialog" style="width: 500px;">
+				<div class="modal-content">
+						<div class="modal-body">
+							<button class="close" data-dismiss="modal">
+								<span>&times;</span>
+							</button>
+						</div>
+
+						<div class="modal-header">
+							<h3 class="text-center">登入窗口</h3>
+						</div>
+
+						<div class="modal-body">
+							
+								<form  id="login_form" class="form-horizontal" action="#" method="post" onsubmit="return false;">
+									<div class="form-group">
+										<div class="row" >
+											<label for="username" class="col-xs-5 col-sm-5 col-md-5 col-lg-5 control-label">用户名:</label>
+											<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+												<input id="username" class="form-control" type="text" name="username" autofocus="autofocus">
+											</div>
+										</div>
+										
+										<div class="row" style="margin-top: 20px">
+											<label for="password" class="col-xs-5 col-sm-5 col-md-5 col-lg-5  control-label">密&nbsp;&nbsp;&nbsp;码:</label>
+											<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+											<input id="password" type="password" class="form-control" name="password" >
+											</div>
+										</div>
+
+									   <div class="row" style="margin-top: 20px;margin-left: 130px;">
+											 <button id="submit_btn" class="btn btn-primary col-xs-4 col-sm-4 col-md-4 col-lg-4 " type="submit">登录</button>
+						                	 <button class="btn btn-danger col-xs-4 col-sm-4 col-md-4 col-lg-4 " data-dismiss="modal" >取消</button>
+									   </div>
+								   		
+								   	</div>
+								</form>
+							
+						</div>
+						
+
+						<div class="modal-footer">
+							<a href="register.jsp" style="margin-left: 5px;float: left;">快速注册</a>
+							<span style="color: #ccc;font-size: 15px;">326聊天室</span>
+						</div>
+					</div>
+				
+		</div> 
+	</div>
+
+	<!-- 页面中部 -->
+	<div class="container">
+		<div class="row">
+
+		<!-- 频道区 -->
+		
+			<div class="col-md-3 pull-left visible-md-block visible-lg-block">
+				<div style="width: 100%;height:400px;box-shadow: 10px 11px 13px rgba(34, 25, 25, 0.8);" >
+					频道区
+					<ul class="nav nav-pills nav-stacked">
+  						  <li role="presentation" class="active"><a href="#">游客区</a></li>
+  						  <li role="presentation"><a href="#">JAVA</a></li>
+  						  <li role="presentation"><a href="#">C++</a></li>
+ 						  <li role="presentation"><a href="#">C#</a></li>
+					</ul>
+				</div>
+			</div>
+
+		<!-- 聊天窗口区 -->
+
+		  	<div class="col-md-5  col-md-offset-1" style="box-shadow: 10px 11px 13px rgba(34, 25, 25, 0.8);">
+		  		<div class="chat_common_center" style="width: 50px;">
+					游客区
+				</div>
+
+		  		<!-- 消息列表区 -->
+		  		<div id="chat_list_div" style="width:100%;height:350px;border: 1px solid #BCD2EE;overflow:auto;">
+		  			<ul class="my_ul">
+		  				<li class="my_li" style="display:none">
+		  					<div  >
+		  						<div style="width: 50px;margin: 0 auto;"><h6 style="color: #6c6c6c"></h6></div>
+		  						<div  class="bg-success" style="width: 100%">
+		  							<img  class="img-circle chat_user_img" src="" alt="图像" />
+		  								
+		  							<span class="chat_span_qipao" >
+		  								<span class="chat_qipao"></span>
+		  								<span class="chat_content"></span>
+		  							</span>
+		  						</div>
+		  					
+		  					</div>
+		  				</li>
+		  				<li class="li_leave">
+		  					<div style="width: 200px;height: 30px;line-height: 30px" class="chat_common_center">
+		  						<span style="color:red;font-size: 16px "></span> 
+		  					</div>
+		  				</li>
+		  			</ul>
+		  		</div>
+
+		  		<!-- 发送消息区 -->
+		  		<div style="width: 100%;height: 150px;">
+		  			<textarea id="ta" class="form-control" style="margin-top: 3px;" placeholder="to say..."></textarea>
+
+		  			<div class="chat_common_fr" style="margin-top: 5px">
+		  				<button id="btn_send"  class="btn btn-primary">发送</button>
+		  				<button id="btn_clean" class="btn btn-default">清空</button>
+		  			</div>
+
+		  		</div>
+		  	</div>
+
+		 <!-- 聊天室列表区 -->
+		 	<div class="col-md-2  pull-right">
+		 		<div style="width:100%;height:550px;box-shadow: 10px 11px 13px rgba(34, 25, 25, 0.8);" id="listuser_div">
+		 			后加入的游客
+		 			<ul class="my_ul_right">
+		 				<li class="my_li_right" style="display: none">
+		 					<img  class="img-circle chat_user_img" src="image/commonPicture/pic1.jpg" alt="图像" />
+		 					<div class="username_div">
+		 						彭旖
+		 					</div>
+		 				</li>
+		 			</ul>
+		 			
+
+		 		</div>
+		 	</div>
+		</div>
+	
+	</div>
+<%-- 	
+	<!-- 后台测试 -->
+	<a href="${pageContext.request.contextPath }/user_logout.action">注销</a>
+	<h2>修改测试</h2>
+	<c:if test="${!empty sessionScope.user }">
+	<form action="${pageContext.request.contextPath }/user_update.action">
+		<input type="hidden" name="userId" value="${sessionScope.user.userId }">
+		<input type="text" name="username" value="${sessionScope.user.username }"/>
+		<input type="text" name="date" value="<fmt:formatDate value="${sessionScope.user.date }" pattern="yyyy-MM-dd"/>">
+		
+		<input type="submit" value="提交">
+	</form>
+	</c:if>
+	<h2>查询用户测试</h2>
+	<a href="${pageContext.request.contextPath }/user_find.action?userId=${sessionScope.user.userId }">查询用户</a> --%>
+	
+	
+		<!-- 底部区 -->
+ 	<nav class="navbar navbar-default navbar-fixed-bottom">
+  		<div class="container">
+    		<p class="navbar-text navbar-right text-info"><strong>当前在线总人数:<%=ChatWebSocket.getCount()+1  %></strong></p>
+    		<p class="navbar-text text-info "><a><strong>联系我</strong></a></p>
+  		</div> 
+	</nav>
+</body>
+</html>

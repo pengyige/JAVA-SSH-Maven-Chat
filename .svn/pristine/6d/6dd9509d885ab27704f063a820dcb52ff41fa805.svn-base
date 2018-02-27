@@ -1,0 +1,27 @@
+package cn.pengyi.dao.impl;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.transaction.annotation.Transactional;
+
+import cn.pengyi.dao.UserDao;
+import cn.pengyi.domain.User;
+
+
+public class UserDaoImpl   implements UserDao {
+	private SessionFactory sessionFactory;
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	@Override
+	public void save(User user) {
+		
+		Session session =  sessionFactory.getCurrentSession();
+		session.save(user);
+		
+		
+	}
+
+}

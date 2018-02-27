@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	
+	<package name="SSH_Maven" extends="struts-default" namespace="/">
+		<!-- <action name="customer_*" class="cn.pengyi.web.action.CustomerAction" method="{1}">
+			<result name="success">success.jsp</result>
+		</action> -->
+		<action name="user_register" class="cn.pengyi.web.action.UserAction" method="register">
+			<result name="success">success.jsp</result>
+			<result name="input">index.jsp</result>
+		</action>
+	</package>
+
+</struts>

@@ -1,0 +1,92 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.chat_common_fl {
+	float: left;
+}
+
+.chat_common_fr {
+	float: right;
+}
+
+
+.chat_common_center {
+	display: block;
+	margin:0 auto;
+}
+
+/*气泡样式*/
+.chat_qipao {
+	position: absolute;
+
+	top: 5px;
+	left: -16px;
+	 width:0;
+    height:0;
+    font-size:0;
+    border:solid 8px;
+    border-color: #dff0d8 #F8C301  #dff0d8 #dff0d8;
+}
+
+
+body { padding-top: 70px;
+	width: 100%;
+	height: auto;
+	background-color: #E5E5E5;
+ }
+
+
+.my_ul {
+	list-style-type: none;
+}
+
+.my_ul li{
+	margin-top: 20px;
+}
+
+
+.my_ul_right{
+	list-style-type: none;
+}
+
+.my_li_right {
+	margin-top: 10px;
+	margin-left: 20px;
+	float:left;
+}
+
+.li_leave {
+	display: none;
+}
+
+.chat_user_img {
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+}
+
+
+
+.username_div {
+	margin-left: 10px;
+}
+
+.chat_span_qipao {
+	display: inline-block;
+	background-color: #F8C301;
+	border-radius: 5px;
+	margin-left: 30px;
+	position: relative;
+	padding: 5px 20px;
+}
+
+.chat_content {
+	color:#8470FF;
+}
+
+@media (min-width: 768px)
+.navbar-toggle {
+    display: none;
+}

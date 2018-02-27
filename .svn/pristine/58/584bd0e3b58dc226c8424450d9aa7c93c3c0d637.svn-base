@@ -1,0 +1,20 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+<hibernate-mapping >  
+    <class name="cn.pengyi.domain.User" table="user">  
+        <id name="userId" >  
+            <generator class="uuid"/>  
+        </id>  
+
+     	<property name="username"></property>
+     	<property name="password"></property>
+		<property name="sex"></property>
+		<property name="email"></property>
+		<property name="date" type="date"></property>
+     	
+
+    <!--  	<set name="setUserVisit">
+ 			<key column="uvid"></key>
+ 			<one-to-many class="cn.pengyi.entity.Visit"/>    	
+     	</set> -->
+    </class>  
+</hibernate-mapping>

@@ -1,0 +1,20 @@
+package cn.pengyi.service;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import cn.pengyi.dao.UserDao;
+import cn.pengyi.domain.User;
+
+
+public class UserService {
+	//依赖注入
+	private UserDao userDao;
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+	
+	public void save(User user){
+		userDao.save(user);
+	}
+}

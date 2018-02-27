@@ -1,0 +1,80 @@
+$(function (){
+	
+	/*阻止表单默认提交*/
+/*	$('#login_form').on("submit",function(event){
+		return false;
+	});*/
+	
+	/*验证登入表单*/
+	$('#login_form').bootstrapValidator({
+		message : 'This value is not valid',
+		feedbackIcons: {
+                　　　　valid: 'glyphicon glyphicon-ok',
+                　　　　invalid: 'glyphicon glyphicon-remove',
+                　　　　validating: 'glyphicon glyphicon-refresh'
+         },
+         fields:{
+         	username: {
+         		validators:{
+         			notEmpty:{
+         				message: '用户名不能为空'
+         			},
+         			stringLength:{
+         				min:4,
+         				max:12,
+         				message:'用户名必须在4-12个字符之间'
+         			}
+         		}
+         	},
+            password:{
+         		validators:{
+         			notEmpty:{
+         				message:'密码不能为空'
+         			},
+         			stringLength:{
+         				min:6,
+         				max:15,
+         				message:'密码长度必须在6-15个字符之间'	
+         			}
+         		}
+         	},
+        },
+     /*  submitHandler: function(validator, form, submitButton){
+       			alert("五熊");
+      	 };*/
+       });
+	
+	/*ajax提交数据*/
+	$('#submit_btn').click(function (){
+		var bootstrapValidator = $('#login_form').data('bootstrapValidator');
+		if(bootstrapValidator.isValid()){
+			var username = $('#username').val();
+			var password = $('#password').val();
+			
+			$.ajax({
+				url : 'user_login.action',
+				type : 'post',
+				dataType : 'json',
+				data : {
+					username : username,
+					password : password
+				},
+				success : function(data){
+					alert('登入成功');
+				},
+				error : function(){
+					alert('登入失败');
+				}
+			});
+		}
+	});
+
+    /*日期控件*/
+  $('#datetimepicker').datetimepicker({
+    language:'zh-CN',
+    format:'yyyy-mm-dd',
+    autoclose:true,
+     minView:2
+  });
+
+});
